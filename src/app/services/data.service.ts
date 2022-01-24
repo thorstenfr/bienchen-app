@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Storage } from '@capacitor/storage';
 
 export interface Message {
   fromName: string;
@@ -11,6 +12,7 @@ export interface Message {
 @Injectable({
   providedIn: 'root'
 })
+
 export class DataService {
   public messages: Message[] = [
     {
@@ -81,3 +83,7 @@ export class DataService {
     return this.messages[id];
   }
 }
+
+
+
+
