@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { DataService, Message } from '../services/data.service';
-import { StorageService } from '../services/storage.service';
+import { DataService, Message, Course } from '../services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -13,16 +12,30 @@ export class HomePage {
   storageName: string;
   country: string;
 
-  constructor(private data: DataService,  private storage: StorageService) {}
+  constructor(private data: DataService) {}
+ 
+  saveCourses() {
+    /* Speichere alle Kursdaten */
+    this.data.setObject('setStorage', this.getCourses());
 
-  setStorage() {
-    this.storage.setString('name', this.name);
-    this.storage.setObject('person', {
-      name: this.name,
-      country: this.country
-    });
-    this.storage.setObject('person', this.getMessages());
   }
+  setStorage() {
+    /* Speichere alle Kursdaten */  
+    this.data.setObject('setStorage', this.getMessages());
+  }
+
+  getStorage() {
+    this.data.getString('name').then((data: any) => {
+      if (data.value) {
+        this.storageName = data.value;
+    
+    }
+    });
+    this.data.getObject('courses').then((data: any) => {
+      this.person = data;
+    });
+  }
+
 
 
   refresh(ev) {
@@ -33,6 +46,10 @@ export class HomePage {
 
   getMessages(): Message[] {
     return this.data.getMessages();
+  }
+
+  getCourses(): Course[] {
+    return this.data.getCourses();
   }
 
 }

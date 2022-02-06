@@ -22,6 +22,18 @@
   <ion-list>
     <app-message *ngFor="let message of getMessages()" [message]="message"></app-message>
   </ion-list>
+  
+<h2>Kurse</h2>
+  <ion-list>
+    <ion-item *ngFor="let course of getCourses()">
+      <ion-label>{{course.title}}</ion-label>
+    </ion-item>    
+  </ion-list>
+
+
+
+  
+
   <ion-list>
     <ion-item>
       <ion-label position="floating">Enter Name</ion-label>
@@ -34,6 +46,7 @@
     </ion-item>
 
     <div class="ion-float-right">
+      <ion-button (click)="saveCourses()">Save Courses</ion-button>
       <ion-button (click)="setStorage()">Set storage data</ion-button>
       <ion-button color="tertiary" (click)="getStorage()">Get storage data</ion-button>
       <ion-button color="tertiary" (click)="clearStorage()">Clear storage</ion-button>

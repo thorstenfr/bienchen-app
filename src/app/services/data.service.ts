@@ -9,11 +9,51 @@ export interface Message {
   read: boolean;
 }
 
+interface Comment {
+  comment_text: string;
+  comment_date: string;
+}
+
+interface GoodRating {
+  rating_date: string;  
+}
+
+interface BadRating {
+  rating_date: string;
+} 
+
+interface Pupil {
+  pupilName : string;
+  goodRatings : GoodRating[];
+  badRatings: BadRating[]; 
+  comments: Comment[];
+  
+}
+export interface Course {
+  title: string;
+  creationDate: string;
+  pupils: Pupil[];
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class DataService {
+  public courses: Course[] = [
+    {
+      title: '2BFW2',
+      creationDate: '6. Feb. 2022',
+      pupils: []
+    },
+    {
+      title: 'WGW11',
+      creationDate: '2. Feb. 2022',
+      pupils: []
+    } 
+  ];
+
   public messages: Message[] = [
     {
       fromName: 'Matt Chorsey',
@@ -75,14 +115,48 @@ export class DataService {
 
   constructor() { }
 
+
+async setString(key: string, value: string) {
+  await Storage.set({ key, value });
+}
+
+async getString(key: string): Promise<{ value: any }> {
+  return (await Storage.get({ key }));
+}
+
+
+async setObject(key: string, value: any) {
+  await Storage.set({ key, value: JSON.stringify(value) });
+}
+
+async getObject(key: string): Promise<{ value: any }> {
+  const ret = await Storage.get({ key });
+  return JSON.parse(ret.value);
+}
+
+
+async removeItem(key: string) {
+  await Storage.remove({ key });
+}
+
+async clear() {
+  await Storage.clear();
+}
+
   public getMessages(): Message[] {
+   // this.getObject('courses');
+   
     return this.messages;
+  }
+
+  public getCourses(): Course[] {
+    return this.courses;
   }
 
   public getMessageById(id: number): Message {
     return this.messages[id];
   }
-}
+} 
 
 
 
