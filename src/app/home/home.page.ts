@@ -14,10 +14,14 @@ export class HomePage {
 
   constructor(private data: DataService) {}
  
+  /* Einen neuen Kurs hinzufügen */
+  addCourse() {
+    this.data.addCourse(this.name);
+    this.saveCourses();
+  }
   saveCourses() {
     /* Speichere alle Kursdaten */
     this.data.setObject('courses', this.getCourses());
-
   }
   setStorage() {
     /* Speichere alle Kursdaten */  

@@ -31,7 +31,7 @@ interface Pupil {
 }
 export interface Course {
   title: string;
-  creationDate: string;
+  creationDate: number;
   pupils: Pupil[];
 }
 
@@ -41,18 +41,7 @@ export interface Course {
 })
 
 export class DataService {
-  public courses: Course[] = [
-    {
-      title: '2BFW2',
-      creationDate: '6. Feb. 2022',
-      pupils: []
-    },
-    {
-      title: 'WGW11',
-      creationDate: '2. Feb. 2022',
-      pupils: []
-    } 
-  ];
+  public courses: Course[] = [];
 
   public messages: Message[] = [
     {
@@ -151,6 +140,20 @@ async clear() {
 
   public getCourses(): Course[] {
     return this.courses;
+  }
+
+  /* Einen neuen Kurs hinzufügen */
+  public addCourse(newCourseTitle: string) {
+    var now = new Date().getTime();
+       
+    this.courses.push({
+      title: newCourseTitle,
+      creationDate: now,
+      pupils: []
+    }
+      
+    );
+     
   }
 
   public getMessageById(id: number): Message {
