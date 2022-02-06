@@ -16,7 +16,7 @@ export class HomePage {
  
   saveCourses() {
     /* Speichere alle Kursdaten */
-    this.data.setObject('setStorage', this.getCourses());
+    this.data.setObject('courses', this.getCourses());
 
   }
   setStorage() {
